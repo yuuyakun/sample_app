@@ -5,4 +5,5 @@ class User < ApplicationRecord
   validates :email, presence: true,length: { maximum: 255 },
    fomat: { with:VALID_EMAIL_REGEX },
    uniqueness:{ case_sensiteve:false }
+   has_secure_password
 end
