@@ -6,4 +6,5 @@ class User < ApplicationRecord
    fomat: { with:VALID_EMAIL_REGEX },
    uniqueness:{ case_sensiteve:false }
    has_secure_password
+   validates :password,presence:true,length: {minmum:6}
 end
