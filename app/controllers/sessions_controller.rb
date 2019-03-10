@@ -16,7 +16,8 @@ class SessionsController < ApplicationController
 
 # ユーザーログアウト
   def destroy
-    log_out
+  # ログイン中のみログアウトする
+    log_out if legged_in?
     redirect_to root_url
   end
 end
