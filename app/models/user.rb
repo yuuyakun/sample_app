@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  #アクセス可能な属性を生成
+  # ブラウザを再起動した時にログインできる機能
   attr_accessor :remember_token
   before_save{ self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
