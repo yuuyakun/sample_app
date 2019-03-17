@@ -8,7 +8,7 @@ class User < ApplicationRecord
    format: { with: VALID_EMAIL_REGEX },
    uniqueness:{ case_sensitive: false }
    has_secure_password
-   validates :password, presence: true,length: { minimum:6 }
+   validates :password, presence: true,length: { minimum:6 }, allow_nil: true  # パスワードが空だった場合
 
    def User.digest(string)
      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST:
@@ -16,25 +16,21 @@ class User < ApplicationRecord
      BCrypt::Password.create(string, cost: cost)
    end
 
-# ランダムなトークンを返す
-   def User.new_token
+   def User.new_token  # ランダムなトークンを返す
      SecureRandom.urlsafe_base64
    end
 
-# ユーザーをデータベースに記録する
-   def remember
+   def remember  # ユーザーをデータベースに記録する
      self.remember_token = User.new_token
      update_attribute(:remember_digest, User.digest(remember_token))
    end
 
-# 渡されたトークンがダイジェストと一致したらtrueにする
-   def authenticated?(remember_token)
+   def authenticated?(remember_token) # 渡されたトークンがダイジェストと一致したらtrueにする
      return false if remember_digest.nil?
      BCrypt::Password.new(remember_digest).is_password?(remember_token)
    end
 
-# ユーザーのログイン情報を破棄する
-   def forget
+   def forget  # ユーザーのログイン情報を破棄する
      update_attribute(:remember_digest, nil)
    end
 
