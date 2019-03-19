@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  # ユーザ一覧を表示
-  def show
+  before_action :logged_in_user, only: [:edit,  :update] #  ログインしたユーザーしか使えない
+
+  def show  # ユーザ一覧を表示
     @user= User.find(params[:id])
   end
 
@@ -40,4 +41,14 @@ private  # 以下はプライベートのパラメータ
       :password_confirmation)
 
   end
+
+  # beforeアクション
+
+  def logged_in_user   # ログイン済みユーザーか確認する
+    unless logged_in?
+     flash[:danger] = "Please log in."
+     redirect_to login_url
+    end
+  end
+
 end
