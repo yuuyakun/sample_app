@@ -4,15 +4,19 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-# 渡されたセッションを永続的にする
-  def remember(user)
+
+  def remember(user)  # 渡されたセッションを永続的にする
    user.remember
    cookies.permanent.signed[:user_id] = user.id
    cookies.permanent[:remember_token] = user.remember_token
   end
 
-# ユーザーがログインしているか検索する
-  def current_user
+  def current_user?(user)  # 渡されたユーザーがログイン済みユーザーであればtrueを返す
+    user == current_user
+  end
+
+
+  def current_user  # ユーザーがログインしているか検索する
     if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
