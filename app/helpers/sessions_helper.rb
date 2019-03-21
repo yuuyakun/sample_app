@@ -39,11 +39,18 @@ module SessionsHelper
   end
 
 
-# ユーザーをログアウト
-  def log_out
+  def log_out  # ユーザーをログアウト
     forget(current_user)
     session.delete(:user_id)
     @current_user = nil
   end
 
+  def redirect_back_or(default)  # 記憶したURLにリダイレクトできる
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  def store_location   # アクセスしようとしたURLを覚えておく
+    session[:forwarding_url] = request.original_url if request.get?
+  end
 end

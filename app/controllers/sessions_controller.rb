@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       log_in user
       # ログインしてユーザーを保持する
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user
+      redirect_back_or user
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
@@ -17,8 +17,7 @@ class SessionsController < ApplicationController
 
   # ユーザーログアウト
   def destroy
-  # ログイン中のみログアウトする
-    log_out if logged_in?
+    log_out if logged_in?  # ログイン中のみログアウトする
     redirect_to root_url
   end
 end
