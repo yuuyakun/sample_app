@@ -9,7 +9,8 @@
 User.create(name: "Example User",
             email: "example@railstutorial.orh",
             password: "foober",
-            password_confirmation: "foober")
+            password_confirmation: "foober",
+            admin: true) # 最初のユーザーを管理者にする
 
 99.times do |n|
   name = Faker::Name.name
