@@ -10,7 +10,10 @@ User.create(name: "Example User",
             email: "example@railstutorial.orh",
             password: "foober",
             password_confirmation: "foober",
-            admin: true) # 最初のユーザーを管理者にする
+            admin: true, # 最初のユーザーを管理者にする
+            activated: true,
+            activated_at: Time.zone.now) #  タイムスタンプを返す
+
 
 99.times do |n|
   name = Faker::Name.name
@@ -19,5 +22,7 @@ User.create(name: "Example User",
   User.create!(name: name,
                email: email,
                password: password,
-               password_confirmation: password)
+               password_confirmation: password,
+               activated: true,
+               activated_at: Time.zone.now)
 end
