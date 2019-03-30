@@ -36,6 +36,15 @@ class User < ApplicationRecord
      update_attribute(:remember_digest, nil)
    end
 
+   def activate # アカウントを有効化する
+     update_attribute(:activated, true)
+     update_attribute(:activated_at, Time.zone.now)
+   end
+
+   def send_activation_email # 有効化メールを送信する
+     UserMailer.account_activation(self).deliver_now
+   end
+
 private
 
    def downcase_email  # メールアドレスを全て小文字にする

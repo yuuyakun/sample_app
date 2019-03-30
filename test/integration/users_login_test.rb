@@ -23,7 +23,7 @@ require 'test helper'
     delete logout_path
     assert_not is_logged_in?
     assert_redirected_to root_url
-  #　２番目のウインドウでログアウトをクリックするユーザーをシミュレートする
+  # ２番目のウインドウでログアウトをクリックするユーザーをシミュレートする
     delete logout_path
     forrow_redirect!
     assert_select "a[href=?]",login_path

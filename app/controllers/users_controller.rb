@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   def create   # 会員情報を作成するメソッド
     @user = User.new(user_params)
     if @user.save    # 新期ユーザーを作成する機能
-      UserMailer.account_activation(@user).deliver_now
+      @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
