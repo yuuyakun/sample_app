@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :microposts 
+  has_many :microposts, dependent: :destroy #ユーザーが削除された時にマイクロポストも削除される 
   # ブラウザを再起動した時にログインできる機能
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
